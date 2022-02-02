@@ -15,8 +15,10 @@ class Example(QWidget):
         super().__init__()
         self.lon, self.lat = input().split(', ')
         self.spn = float(input())
-        self.getImage()
+
         self.initUI()
+        self.getImage()
+
 
     def getImage(self):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.lon}," \
@@ -29,31 +31,25 @@ class Example(QWidget):
             print("Http статус:", response.status_code, "(", response.reason,
                   ")")
             sys.exit(1)
-
-        self.img = ImageQt.ImageQt(Image.open(BytesIO(response.content)))
+        self.img = Image.open(BytesIO(response.content))
+        self.update_image()
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
         self.setWindowTitle('Отображение карты')
-
         self.image = QLabel(self)
+
+    def update_image(self):
         self.image.move(0, 0)
         self.image.resize(600, 450)
-        self.image.setPixmap(QPixmap.fromImage(self.img))
+        self.image.setPixmap(QPixmap.fromImage(ImageQt.ImageQt(self.img)))
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
             self.spn += 0.001
-            print(self.spn)
         elif event.key() == Qt.Key_PageDown:
             self.spn -= 0.001
-            print(self.spn)
         self.getImage()
-        self.initUI()
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -61,4 +57,3 @@ if __name__ == '__main__':
     ex = Example()
     ex.show()
     sys.exit(app.exec())
-# 46.049690, 51.527601
