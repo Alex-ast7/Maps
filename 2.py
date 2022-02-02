@@ -23,16 +23,12 @@ class Example(QWidget):
     def getImage(self):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.lon}," \
                       f"{self.lat}8&spn={str(self.spn)},{str(self.spn)}&l=map"
-        response = requests.get(map_request)
-
-        if not response:
-            print("Ошибка выполнения запроса:")
-            print(map_request)
-            print("Http статус:", response.status_code, "(", response.reason,
-                  ")")
-            sys.exit(1)
-        self.img = Image.open(BytesIO(response.content))
-        self.update_image()
+        try:
+            response = requests.get(map_request)
+            self.img = Image.open(BytesIO(response.content))
+            self.update_image()
+        except Exception:
+            print('недопустимое значение масштаба')
 
     def initUI(self):
         self.setGeometry(100, 100, *SCREEN_SIZE)
