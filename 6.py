@@ -85,6 +85,7 @@ class Example(QWidget):
         except Exception as e:
             print(e)
 
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
             self.spn += 0.001
