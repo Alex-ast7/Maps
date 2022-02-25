@@ -140,13 +140,6 @@ class Example(QWidget):
         if ok_pressed:
             self.address_edit.setText(self.object)
             self.start()
-            # print(self.object)
-
-        # print(event.x(), event.y())
-        # if event.button() == Qt.LeftButton:
-        #     print('test')
-        # self.new_window = MyWidget(event.x(), event.y())
-        # self.new_window.show()
 
         # сделали на кнопки WASD, потому что по нажатию на стрелочки функция
         # не срабатывает, а передвигается курсор в line_edit
