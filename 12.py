@@ -209,7 +209,7 @@ class Example(QWidget):
                     "GeoObject"]
             self.toponym_address = toponym["metaDataProperty"]["GeocoderMetaData"][
                 "text"]
-            # self.toponym_index = toponym["metaDataProperty"]["GeocoderMetaData"]["Address"]["postal_code"]
+            self.toponym_index = toponym["metaDataProperty"]["GeocoderMetaData"]["Address"]["postal_code"]
         else:
             raise RuntimeError(
                 """Ошибка выполнения запроса:
